@@ -1,0 +1,218 @@
+
+
+
+.emergency-active {
+    position: relative;
+}
+
+.emergency-active::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    background:
+        radial-gradient(ellipse 100% 100% at 50% 0%, rgba(220, 38, 38, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 100% 100% at 50% 100%, rgba(220, 38, 38, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 100% 100% at 0% 50%, rgba(220, 38, 38, 0.1) 0%, transparent 40%),
+        radial-gradient(ellipse 100% 100% at 100% 50%, rgba(220, 38, 38, 0.1) 0%, transparent 40%);
+    animation: emergencyGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes emergencyGlow {
+    0% {
+        opacity: 0.6;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+.emergency-active::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9997;
+    border: 4px solid transparent;
+    box-shadow:
+        inset 0 0 0 4px rgba(220, 38, 38, 0.8),
+        inset 0 0 30px rgba(220, 38, 38, 0.4),
+        0 0 30px rgba(220, 38, 38, 0.3);
+    animation: emergencyPulse 1s ease-in-out infinite;
+}
+
+@keyframes emergencyPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            inset 0 0 0 4px rgba(220, 38, 38, 0.8),
+            inset 0 0 30px rgba(220, 38, 38, 0.4),
+            0 0 30px rgba(220, 38, 38, 0.3);
+    }
+
+    50% {
+        box-shadow:
+            inset 0 0 0 6px rgba(239, 68, 68, 1),
+            inset 0 0 60px rgba(239, 68, 68, 0.6),
+            0 0 60px rgba(239, 68, 68, 0.5);
+    }
+}
+
+
+.emergency-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.emergency-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    background: linear-gradient(90deg,
+            #7f1d1d 0%,
+            #dc2626 20%,
+            #ef4444 50%,
+            #dc2626 80%,
+            #7f1d1d 100%);
+    background-size: 200% 100%;
+    color: white;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: bannerScroll 3s linear infinite, bannerPulse 1s ease-in-out infinite;
+    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.5);
+    pointer-events: auto;
+}
+
+@keyframes bannerScroll {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+@keyframes bannerPulse {
+
+    0%,
+    100% {
+        transform: scaleY(1);
+    }
+
+    50% {
+        transform: scaleY(1.05);
+    }
+}
+
+.emergency-banner-icon {
+    font-size: 20px;
+    animation: iconPulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes iconPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+
+.emergency-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid;
+}
+
+.emergency-toggle-btn.inactive {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    border-color: #dc2626;
+    color: #dc2626;
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.2);
+}
+
+.emergency-toggle-btn.inactive:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    color: white;
+    box-shadow:
+        0 0 30px rgba(220, 38, 38, 0.5),
+        0 0 60px rgba(220, 38, 38, 0.3);
+    transform: scale(1.02);
+}
+
+.emergency-toggle-btn.active {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    border-color: #f87171;
+    color: white;
+    animation: activeButtonPulse 1s ease-in-out infinite;
+    box-shadow:
+        0 0 30px rgba(220, 38, 38, 0.6),
+        0 0 60px rgba(220, 38, 38, 0.4);
+}
+
+@keyframes activeButtonPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 30px rgba(220, 38, 38, 0.6),
+            0 0 60px rgba(220, 38, 38, 0.4);
+    }
+
+    50% {
+        box-shadow:
+            0 0 40px rgba(239, 68, 68, 0.8),
+            0 0 80px rgba(239, 68, 68, 0.5);
+    }
+}
+
+
+.emergency-active .non-essential-ui {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(30%);
+}
+
+
+.emergency-active [data-icon="normal"]::before {
+    content: '⚠️';
+}
+
+
+.emergency-active .card,
+.emergency-active [class*="Card"] {
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.2) !important;
+}

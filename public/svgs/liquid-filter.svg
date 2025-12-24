@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
+  <defs>
+    <!-- Liquid displacement filter for glass refraction effect -->
+    <filter id="liquid-displacement" x="-20%" y="-20%" width="140%" height="140%">
+      <!-- Turbulence creates the organic noise pattern -->
+      <feTurbulence 
+        id="liquid-turbulence"
+        type="fractalNoise"
+        baseFrequency="0.012"
+        numOctaves="3"
+        result="turbulence"
+        seed="42"
+      />
+      <!-- Displacement applies the turbulence to create refraction -->
+      <feDisplacementMap
+        id="liquid-displace"
+        in="SourceGraphic"
+        in2="turbulence"
+        scale="0"
+        xChannelSelector="R"
+        yChannelSelector="G"
+      />
+    </filter>
+    
+    <!-- Alternative lighter filter for cards -->
+    <filter id="liquid-displacement-light" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence 
+        type="fractalNoise"
+        baseFrequency="0.015"
+        numOctaves="2"
+        result="turbulence"
+      />
+      <feDisplacementMap
+        in="SourceGraphic"
+        in2="turbulence"
+        scale="0"
+        xChannelSelector="R"
+        yChannelSelector="G"
+      />
+    </filter>
+  </defs>
+</svg>

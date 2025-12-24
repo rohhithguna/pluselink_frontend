@@ -1,0 +1,310 @@
+
+
+
+.liquid-selector-container {
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+    z-index: 900;
+}
+
+
+@keyframes blobMorph {
+
+    0%,
+    100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+
+    25% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+
+    50% {
+        border-radius: 50% 60% 30% 60% / 30% 40% 70% 60%;
+    }
+
+    75% {
+        border-radius: 60% 40% 60% 30% / 70% 30% 40% 60%;
+    }
+}
+
+
+@keyframes waterRipple {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+    }
+}
+
+
+@keyframes liquidFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    33% {
+        transform: translateY(-5px) rotate(2deg);
+    }
+
+    66% {
+        transform: translateY(-3px) rotate(-1deg);
+    }
+}
+
+
+@keyframes springBounce {
+    0% {
+        transform: scale(1);
+    }
+
+    30% {
+        transform: scale(0.9);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    70% {
+        transform: scale(0.95);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+.liquid-selector {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    animation: liquidFloat 4s ease-in-out infinite;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.liquid-selector:hover {
+    transform: scale(1.1);
+}
+
+.liquid-selector:active {
+    animation: springBounce 0.5s ease-out;
+}
+
+
+.liquid-blob {
+    width: 100%;
+    height: 100%;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: blobMorph 8s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        0 10px 40px rgba(147, 51, 234, 0.3),
+        inset 0 -5px 20px rgba(0, 0, 0, 0.1),
+        inset 0 5px 20px rgba(255, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+
+.liquid-blob.light {
+    background: linear-gradient(145deg, #ffffff 0%, #f0f4ff 50%, #e2e8f0 100%);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.liquid-blob.dark {
+    background: linear-gradient(145deg, #1a1a2e 0%, #0f0f23 50%, #000000 100%);
+    border: 2px solid rgba(147, 51, 234, 0.3);
+    box-shadow:
+        0 0 30px rgba(147, 51, 234, 0.4),
+        0 10px 40px rgba(0, 0, 0, 0.5),
+        inset 0 0 20px rgba(147, 51, 234, 0.2);
+}
+
+.liquid-blob.glass {
+    background: linear-gradient(145deg,
+            rgba(255, 255, 255, 0.6) 0%,
+            rgba(200, 200, 255, 0.4) 50%,
+            rgba(147, 51, 234, 0.2) 100%);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.liquid-blob.neo {
+    background: linear-gradient(145deg, #e8ecef 0%, #d5dbe3 100%);
+    box-shadow:
+        10px 10px 20px rgba(166, 180, 200, 0.5),
+        -10px -10px 20px rgba(255, 255, 255, 0.8),
+        inset 2px 2px 4px rgba(255, 255, 255, 0.5),
+        inset -2px -2px 4px rgba(166, 180, 200, 0.3);
+    border: none;
+}
+
+
+.liquid-icon {
+    font-size: 28px;
+    z-index: 2;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.liquid-selector:hover .liquid-icon {
+    transform: scale(1.2) rotate(10deg);
+}
+
+
+.liquid-ripple {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    animation: waterRipple 0.8s ease-out forwards;
+    pointer-events: none;
+}
+
+
+.liquid-label {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: inherit;
+}
+
+.liquid-selector:hover .liquid-label {
+    opacity: 0.8;
+}
+
+
+.liquid-selector.magnetic {
+    transition: transform 0.15s ease-out;
+}
+
+
+.liquid-orbit {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.orbit-dot {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.liquid-selector:hover .orbit-dot {
+    opacity: 1;
+}
+
+.orbit-dot.light {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    top: -10px;
+    left: 50%;
+}
+
+.orbit-dot.dark {
+    background: #0f0f23;
+    border: 1px solid #a855f7;
+    top: 50%;
+    right: -10px;
+    left: auto;
+}
+
+.orbit-dot.glass {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    bottom: -10px;
+    top: auto;
+    left: 50%;
+}
+
+.orbit-dot.neo {
+    background: #e8ecef;
+    box-shadow: 3px 3px 6px #c5ccd6, -3px -3px 6px #ffffff;
+    top: 50%;
+    left: -10px;
+}
+
+
+.liquid-selector.expanded .orbit-dot {
+    opacity: 1;
+    cursor: pointer;
+    pointer-events: auto;
+    width: 40px;
+    height: 40px;
+}
+
+.liquid-selector.expanded .orbit-dot.light {
+    top: -50px;
+}
+
+.liquid-selector.expanded .orbit-dot.dark {
+    right: -50px;
+}
+
+.liquid-selector.expanded .orbit-dot.glass {
+    bottom: -50px;
+}
+
+.liquid-selector.expanded .orbit-dot.neo {
+    left: -50px;
+}
+
+.orbit-dot:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+
+.liquid-pulse-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid rgba(147, 51, 234, 0.3);
+    transform: translate(-50%, -50%);
+    animation: pulseRing 2s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes pulseRing {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+}

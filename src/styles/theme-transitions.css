@@ -1,0 +1,501 @@
+
+
+
+.theme-transitioning,
+.theme-transitioning * {
+    transition:
+        background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        backdrop-filter 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+
+@keyframes themeFlash {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
+.theme-flash {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    animation: themeFlash 0.6s ease-out forwards;
+}
+
+.theme-flash.light {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+}
+
+.theme-flash.dark {
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.5) 0%, transparent 70%);
+}
+
+.theme-flash.glass {
+    background: radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, transparent 70%);
+}
+
+.theme-flash.neo {
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+}
+
+
+:root {
+    --theme-transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    --theme-accent: #a855f7;
+    --theme-background: #ffffff;
+    --theme-text: #1a1a1a;
+    --theme-glass: rgba(255, 255, 255, 0.6);
+}
+
+
+.dark-theme {
+    --bg-primary: var(--theme-background);
+    --text-primary: var(--theme-text);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-shadow: 0 4px 40px rgba(0, 0, 0, 0.5);
+}
+
+
+body {
+    background-color: var(--theme-background);
+    color: var(--theme-text);
+    transition: background-color var(--theme-transition), color var(--theme-transition);
+}
+
+
+.dark-theme .card,
+.dark-theme [class*="bg-white"],
+.dark-theme [class*="bg-neutral-50"] {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-theme [class*="text-neutral-900"],
+.dark-theme [class*="text-gray-900"] {
+    color: #ffffff !important;
+}
+
+.dark-theme [class*="text-neutral-600"],
+.dark-theme [class*="text-gray-600"] {
+    color: #a1a1aa !important;
+}
+
+
+.theme-light {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --card-bg: #ffffff;
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --accent-glow: rgba(147, 51, 234, 0.1);
+}
+
+
+.theme-dark {
+    --bg-primary: #0F0F0F;
+    --bg-secondary: #1a1a1a;
+    --bg-card: rgba(26, 26, 26, 0.95);
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-subtle: rgba(255, 255, 255, 0.04);
+    --card-bg: rgba(20, 20, 20, 0.95);
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    --card-hover-shadow: 0 12px 48px rgba(0, 0, 0, 0.7), 0 0 40px rgba(168, 85, 247, 0.15);
+    --accent-glow: rgba(168, 85, 247, 0.25);
+    --accent-glow-strong: rgba(168, 85, 247, 0.4);
+
+    
+    --banner-calm-bg: linear-gradient(135deg, #0d1f16 0%, #1b3427 100%);
+    --banner-calm-border: rgba(16, 185, 129, 0.25);
+    --banner-calm-text: #a7f3d0;
+    --banner-active-bg: linear-gradient(135deg, #1f1a0a 0%, #2d2410 100%);
+    --banner-active-border: rgba(245, 158, 11, 0.25);
+    --banner-active-text: #fde68a;
+    --banner-emergency-bg: linear-gradient(135deg, #1f0a0a 0%, #2d1010 100%);
+    --banner-emergency-border: rgba(239, 68, 68, 0.35);
+    --banner-emergency-text: #fecaca;
+
+    
+    --nav-bg: rgba(15, 15, 15, 0.95);
+    --nav-border: rgba(255, 255, 255, 0.06);
+    --nav-active-glow: 0 0 20px rgba(168, 85, 247, 0.4);
+
+    
+    --emergency-glow: 0 0 40px rgba(220, 38, 38, 0.5), 0 0 80px rgba(220, 38, 38, 0.25);
+    --emergency-border: rgba(239, 68, 68, 0.4);
+}
+
+
+.theme-dark .card:hover,
+.theme-dark .premium-card:hover {
+    box-shadow: var(--card-hover-shadow);
+    border-color: rgba(168, 85, 247, 0.2);
+}
+
+.theme-dark a:hover,
+.theme-dark button:hover {
+    text-shadow: 0 0 16px rgba(168, 85, 247, 0.4);
+}
+
+
+.theme-dark .nav-active-indicator {
+    box-shadow: var(--nav-active-glow);
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+}
+
+
+.theme-dark,
+body.theme-dark,
+[data-theme="dark"] {
+    
+    color: #E8E8E8;
+}
+
+
+.theme-dark .text-black,
+.theme-dark [class*="text-gray-900"],
+.theme-dark [class*="text-gray-800"],
+.theme-dark [class*="text-gray-700"],
+.theme-dark [class*="text-neutral-900"],
+.theme-dark [class*="text-neutral-800"],
+.theme-dark [class*="text-neutral-700"],
+.theme-dark [class*="text-slate-900"],
+.theme-dark [class*="text-slate-800"],
+.theme-dark [class*="text-slate-700"] {
+    color: #E8E8E8 !important;
+}
+
+.theme-dark .text-gray-600,
+.theme-dark [class*="text-gray-600"],
+.theme-dark [class*="text-neutral-600"],
+.theme-dark [class*="text-slate-600"] {
+    color: #B8B8C0 !important;
+}
+
+.theme-dark .text-gray-500,
+.theme-dark [class*="text-gray-500"],
+.theme-dark [class*="text-neutral-500"],
+.theme-dark [class*="text-slate-500"] {
+    color: #9898A0 !important;
+}
+
+.theme-dark .text-gray-400,
+.theme-dark [class*="text-gray-400"] {
+    color: #787880 !important;
+}
+
+
+.theme-dark h1,
+.theme-dark h2,
+.theme-dark h3,
+.theme-dark h4,
+.theme-dark h5,
+.theme-dark h6 {
+    color: #F0F0F2 !important;
+}
+
+.theme-dark p {
+    color: #D0D0D8 !important;
+}
+
+.theme-dark span:not([class*="text-"]):not([class*="bg-"]) {
+    color: inherit !important;
+}
+
+.theme-dark label {
+    color: #C8C8D0 !important;
+}
+
+
+.theme-dark .card h1,
+.theme-dark .card h2,
+.theme-dark .card h3,
+.theme-dark .card h4,
+.theme-dark .premium-card h1,
+.theme-dark .premium-card h2,
+.theme-dark .premium-card h3,
+.theme-dark .premium-card h4 {
+    color: #F0F0F2 !important;
+}
+
+.theme-dark .card p,
+.theme-dark .premium-card p {
+    color: #C0C0C8 !important;
+}
+
+
+.theme-dark input,
+.theme-dark textarea,
+.theme-dark select {
+    color: #E0E0E8 !important;
+    background-color: rgba(40, 42, 54, 0.9) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.theme-dark input::placeholder,
+.theme-dark textarea::placeholder {
+    color: #808088 !important;
+}
+
+
+.theme-dark button:not([class*="bg-purple"]):not([class*="bg-red"]):not([class*="bg-green"]):not([class*="bg-blue"]):not([class*="bg-amber"]) {
+    color: #E8E8E8 !important;
+}
+
+
+.theme-dark table th {
+    color: #D0D0D8 !important;
+}
+
+.theme-dark table td {
+    color: #C0C0C8 !important;
+}
+
+
+.theme-dark [class*="font-semibold"],
+.theme-dark [class*="font-bold"],
+.theme-dark [class*="font-medium"] {
+    color: #E8E8E8 !important;
+}
+
+
+.theme-dark [style*="color: #0"] {
+    color: #E0E0E8 !important;
+}
+
+.theme-dark [style*="color: #1"] {
+    color: #E0E0E8 !important;
+}
+
+.theme-dark [style*="color: #2"] {
+    color: #D0D0D8 !important;
+}
+
+.theme-dark [style*="color: #3"] {
+    color: #C8C8D0 !important;
+}
+
+.theme-dark [style*="color: rgb(0"] {
+    color: #E0E0E8 !important;
+}
+
+.theme-dark [style*="color: rgb(1"] {
+    color: #E0E0E8 !important;
+}
+
+
+.theme-dark .alert,
+.theme-dark .notification {
+    color: #E0E0E8 !important;
+}
+
+
+.theme-dark .stat-value,
+.theme-dark .metric-value {
+    color: #FFFFFF !important;
+}
+
+.theme-dark .stat-label,
+.theme-dark .metric-label {
+    color: #B0B0B8 !important;
+}
+.theme-glass {
+    --bg-primary: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 50%, #f5f0ff 100%);
+    --bg-secondary: rgba(255, 255, 255, 0.6);
+    --bg-card: rgba(255, 255, 255, 0.4);
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --border-color: rgba(255, 255, 255, 0.5);
+    --border-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.3) 100%);
+    --card-bg: rgba(255, 255, 255, 0.45);
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    --card-hover-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+    --glass-blur: blur(24px);
+    --glass-saturate: saturate(180%);
+    --glass-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+    --accent-glow: rgba(168, 85, 247, 0.15);
+
+    
+    --banner-calm-bg: linear-gradient(135deg, rgba(236, 253, 245, 0.85) 0%, rgba(220, 252, 231, 0.7) 100%);
+    --banner-calm-border: rgba(16, 185, 129, 0.3);
+    --banner-calm-text: #065f46;
+    --banner-active-bg: linear-gradient(135deg, rgba(255, 251, 235, 0.85) 0%, rgba(254, 243, 199, 0.7) 100%);
+    --banner-active-border: rgba(245, 158, 11, 0.3);
+    --banner-active-text: #92400e;
+    --banner-emergency-bg: linear-gradient(135deg, rgba(254, 242, 242, 0.9) 0%, rgba(254, 226, 226, 0.8) 100%);
+    --banner-emergency-border: rgba(239, 68, 68, 0.35);
+    --banner-emergency-text: #991b1b;
+
+    
+    --nav-bg: rgba(255, 255, 255, 0.5);
+    --nav-border: rgba(255, 255, 255, 0.6);
+
+    
+    --emergency-glow: 0 8px 32px rgba(220, 38, 38, 0.3);
+}
+
+
+.theme-glass .card,
+.theme-glass .premium-card {
+    backdrop-filter: var(--glass-blur) var(--glass-saturate);
+    -webkit-backdrop-filter: var(--glass-blur) var(--glass-saturate);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--glass-inner-glow), var(--card-shadow);
+}
+
+.theme-glass .card:hover,
+.theme-glass .premium-card:hover {
+    background: rgba(255, 255, 255, 0.55);
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: var(--glass-inner-glow), var(--card-hover-shadow);
+}
+
+
+.theme-glass .nav-active-indicator {
+    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.6), transparent);
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.3);
+}
+
+
+.theme-neo {
+    --bg-primary: #e8ecef;
+    --bg-secondary: #f0f3f5;
+    --bg-card: #e8ecef;
+    --text-primary: #2d3748;
+    --text-secondary: #718096;
+    --text-muted: #a0aec0;
+    --border-color: rgba(0, 0, 0, 0.03);
+    --card-bg: #e8ecef;
+    --card-shadow-convex:
+        8px 8px 16px rgba(166, 180, 200, 0.45),
+        -8px -8px 16px rgba(255, 255, 255, 0.75);
+    --card-shadow-concave:
+        inset 4px 4px 8px rgba(166, 180, 200, 0.25),
+        inset -4px -4px 8px rgba(255, 255, 255, 0.45);
+    --card-shadow-hover:
+        10px 10px 20px rgba(166, 180, 200, 0.5),
+        -10px -10px 20px rgba(255, 255, 255, 0.85);
+    --accent-glow: rgba(168, 85, 247, 0.08);
+
+    
+    --hover-tilt-max: 1.5deg;
+    --hover-lift: 3px;
+
+    
+    --banner-calm-bg: #e8ecef;
+    --banner-calm-border: transparent;
+    --banner-calm-shadow:
+        inset 3px 3px 6px rgba(166, 180, 200, 0.3),
+        inset -3px -3px 6px rgba(255, 255, 255, 0.5);
+    --banner-calm-text: #2f6d41;
+    --banner-active-bg: #e8ecef;
+    --banner-active-text: #92400e;
+    --banner-emergency-bg: #e8ecef;
+    --banner-emergency-text: #991b1b;
+
+    
+    --nav-bg: #e8ecef;
+    --nav-shadow:
+        4px 4px 8px rgba(166, 180, 200, 0.4),
+        -4px -4px 8px rgba(255, 255, 255, 0.7);
+
+    
+    --emergency-shadow:
+        6px 6px 12px rgba(200, 100, 100, 0.35),
+        -6px -6px 12px rgba(255, 200, 200, 0.3);
+}
+
+
+.theme-neo .card,
+.theme-neo .premium-card {
+    box-shadow: var(--card-shadow-convex);
+    border: none;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.theme-neo .card:hover,
+.theme-neo .premium-card:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(calc(-1 * var(--hover-lift))) perspective(1000px) rotateX(var(--hover-tilt-max)) rotateY(calc(-0.5 * var(--hover-tilt-max)));
+}
+
+
+.theme-neo .concave,
+.theme-neo input:focus,
+.theme-neo .search-input {
+    box-shadow: var(--card-shadow-concave);
+}
+
+
+.theme-neo .floating-card {
+    animation: neoFloatSubtle 8s ease-in-out infinite;
+}
+
+@keyframes neoFloatSubtle {
+
+    0%,
+    100% {
+        transform: translateY(0) rotateX(0);
+    }
+
+    50% {
+        transform: translateY(-4px) rotateX(0.5deg);
+    }
+}
+
+
+.theme-neo .nav-active-indicator {
+    box-shadow: 2px 2px 4px rgba(166, 180, 200, 0.4), -1px -1px 3px rgba(255, 255, 255, 0.6);
+    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.5), transparent);
+    transform: translateY(-1px);
+}
+
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background var(--theme-transition), color var(--theme-transition);
+}
+
+
+.theme-interactive {
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.theme-interactive:hover {
+    transform: translateY(-2px);
+}
+
+.theme-interactive:active {
+    transform: translateY(0);
+}

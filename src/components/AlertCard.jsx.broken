@@ -1,0 +1,185 @@
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import useAlertStore from '../store/alertStore';
+import useThemeStore from '../store/themeStore';
+import Card from './Card';
+import CategoryBadge from './CategoryBadge';
+import EffectivenessScore from './EffectivenessScore';
+import axios from 'axios';
+
+const emojis = ['👍', '🔥', '❗', '❤️', '😢'];
+
+const AlertCard = ({ alert }) => {
+    const { addReaction } = useAlertStore();
+    const { theme } = useThemeStore();
+    const [showReactions, setShowReactions] = useState(false);
+
+    const getPriorityClass = (priority) => {
+        const classes = {
+            emergency: 'alert-emergency',
+            important: 'alert-important',
+            info: 'alert-info',
+            reminder: 'alert-reminder',
+        };
+        return classes[priority] || '';
+    };
+
+    const getPriorityIcon = (priority) => {
+        const icons = {
+            emergency: '🚨',
+            important: '⚠️',
+            info: 'ℹ️',
+            reminder: '⏰',
+        };
+        return icons[priority] || '📢';
+    };
+
+    const handleReaction = async (emoji) => {
+        await addReaction(alert.id, emoji);
+        setShowReactions(false);
+    };
+
+    const handleAcknowledge = async (e) => {
+        e.stopPropagation();
+        try {
+            const token = localStorage.getItem('token');
+            await axios.post(`http://localhost:8000/api/acknowledgments/alert/${alert.id}`, {}, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            // Ideally we'd update local state or refetch, but for now we rely on WS or refresh
+        } catch (error) {
+            console.error('Error acknowledging:', error);
+        }
+    };
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diff = Math.floor((now - date) / 1000 / 60);
+
+        if (diff < 1) return 'Just now';
+        if (diff < 60) return `${diff}m ago`;
+        if (diff < 1440) return `${Math.floor(diff / 60)}h ago`;
+        return `${Math.floor(diff / 1440)}d ago`;
+    };
+
+    const priorityClass = getPriorityClass(alert.priority);
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className={`
+                relative overflow-hidden rounded-2xl p-6 mb-4
+                backdrop-blur-xl bg-white/60 dark:bg-neutral-900/60
+                border border-white/30 dark:border-neutral-800/30
+                shadow-lg hover:shadow-2xl
+                transition-all duration-300
+                hover:-translate-y-1 hover:bg-white/70 dark:hover:bg-neutral-900/70
+                ${priorityClass}
+            `}
+        >
+                                {alert.title}
+                            </h3>
+                            <CategoryBadge category={alert.category} />
+                        </div >
+
+    <div
+        className={`text-body-sm mb-3 ${theme.textMuted} prose prose-sm max-w-none`}
+        dangerouslySetInnerHTML={{ __html: alert.message }}
+    />
+
+{/* Meta */ }
+<div className={`flex items-center gap-3 text-caption ${theme.textMuted} mb-4`}>
+    <span className="font-medium">{alert.sender_name}</span>
+    <span>•</span>
+    <span>{formatDate(alert.created_at)}</span>
+</div>
+
+{/* Reactions & Actions */ }
+<div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+    <div className="flex items-center gap-2 flex-wrap">
+        {Object.entries(alert.reaction_counts || {}).map(([emoji, count]) => (
+            <motion.button
+                key={emoji}
+                onClick={() => handleReaction(emoji)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className={`
+                                            px-3 py-1.5 rounded-lg text-sm
+                                            bg-neutral-100 hover:bg-neutral-200
+                                            transition-premium
+                                        `}
+            >
+                {emoji} {count}
+            </motion.button>
+        ))}
+
+        {/* Add Reaction */}
+        <div className="relative">
+            <motion.button
+                onClick={() => setShowReactions(!showReactions)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className={`
+                                            px-3 py-1.5 rounded-lg text-sm font-medium
+                                            border border-neutral-300
+                                            hover:bg-neutral-100
+                                            transition-premium
+                                            ${theme.textMuted}
+                                        `}
+            >
+                +
+            </motion.button>
+
+            {/* Reaction Picker */}
+            {showReactions && (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9, y: -8 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    className={`
+                                                absolute bottom-full mb-2 left-0
+                                                flex gap-2 p-2.5 rounded-xl
+                                                bg-white border border-neutral-200
+                                                shadow-soft-lg z-10
+                                            `}
+                >
+                    {emojis.map((emoji) => (
+                        <motion.button
+                            key={emoji}
+                            onClick={() => handleReaction(emoji)}
+                            whileHover={{ scale: 1.25 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="text-xl transition-transform"
+                        >
+                            {emoji}
+                        </motion.button>
+                    ))}
+                </motion.div>
+            )}
+        </div>
+    </div>
+
+    <div className="flex items-center gap-3">
+        {alert.priority === 'emergency' && (
+            <button
+                onClick={handleAcknowledge}
+                className="text-xs font-medium text-blue-600 hover:text-blue-800 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+            >
+                ✓ Acknowledge
+            </button>
+        )}
+        {alert.effectiveness_score !== null && (
+            <EffectivenessScore score={alert.effectiveness_score} />
+        )}
+    </div>
+</div>
+                    </div >
+                </div >
+            </Card >
+        </motion.div >
+    );
+};
+
+export default AlertCard;

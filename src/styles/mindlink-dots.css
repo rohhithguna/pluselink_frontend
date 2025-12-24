@@ -1,0 +1,115 @@
+
+
+
+.mindlink-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background: linear-gradient(
+        180deg,
+        #faf5ff 0%,
+        #f5f3ff 40%,
+        #ede9fe 70%,
+        #e9d5ff 100%
+    );
+}
+
+
+.mindlink-dots {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.6;
+    
+    
+    background-image:
+        radial-gradient(circle, rgba(139, 92, 246, 0.15) 1px, transparent 1px),
+        radial-gradient(circle, rgba(167, 139, 250, 0.12) 0.8px, transparent 0.8px),
+        radial-gradient(circle, rgba(196, 181, 253, 0.1) 1.2px, transparent 1.2px);
+    
+    
+    background-size: 
+        80px 80px,
+        120px 120px,
+        100px 100px;
+    
+    
+    background-position: 
+        0 0,
+        40px 40px,
+        20px 60px;
+    
+    
+    animation: floatDots 80s linear infinite;
+}
+
+@keyframes floatDots {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(40px, 40px);
+    }
+}
+
+
+.mindlink-mesh-1 {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+        circle at 20% 20%,
+        rgba(139, 92, 246, 0.08) 0%,
+        transparent 50%
+    );
+}
+
+.mindlink-mesh-2 {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+        circle at 80% 80%,
+        rgba(167, 139, 250, 0.06) 0%,
+        transparent 50%
+    );
+}
+
+
+.simple-dots {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:radial-gradient(
+        circle,
+        rgba(139, 92, 246, 0.12) 1px,
+        transparent 1px
+    );
+    background-size: 100px 100px;
+    opacity: 0.5;
+    animation: floatDots 60s linear infinite;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .mindlink-bg {
+        background: linear-gradient(
+            180deg,
+            #18181b 0%,
+            #27272a 40%,
+            #3f3f46 70%,
+            #52525b 100%
+        );
+    }
+    
+    .mindlink-dots {
+        background-image:
+            radial-gradient(circle, rgba(167, 139, 250, 0.2) 1px, transparent 1px),
+            radial-gradient(circle, rgba(196, 181, 253, 0.15) 0.8px, transparent 0.8px),
+            radial-gradient(circle, rgba(221, 214, 254, 0.1) 1.2px, transparent 1.2px);
+    }
+}
