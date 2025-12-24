@@ -13,7 +13,7 @@ const TemplateSelector = ({ onSelectTemplate }) => {
     const fetchTemplates = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/templates`, {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL || 'https://pluselink-backend.onrender.com/api'}/templates`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setTemplates(response.data);

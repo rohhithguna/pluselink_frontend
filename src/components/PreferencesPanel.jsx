@@ -22,7 +22,7 @@ const PreferencesPanel = () => {
     const fetchPreferences = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/preferences`, {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL || 'https://pluselink-backend.onrender.com/api'}/preferences`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setPreferences(response.data);
@@ -38,7 +38,7 @@ const PreferencesPanel = () => {
         setMessage('');
         try {
             const token = localStorage.getItem('token');
-            await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/preferences`, preferences, {
+            await axios.put(`${import.meta.env.VITE_API_URL || 'https://pluselink-backend.onrender.com/api'}/preferences`, preferences, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setMessage('✅ Preferences saved successfully!');

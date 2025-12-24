@@ -75,7 +75,7 @@ const AlertCard = ({ alert, selectable = false, isSelected = false, onSelect }) 
 
         try {
             const token = localStorage.getItem('token');
-            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/acknowledgments/alert/${alert.id}`, {}, {
+            await axios.post(`${import.meta.env.VITE_API_URL || 'https://pluselink-backend.onrender.com/api'}/acknowledgments/alert/${alert.id}`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 

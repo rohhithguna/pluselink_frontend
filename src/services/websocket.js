@@ -1,7 +1,7 @@
 import useAuthStore from '../store/authStore';
 
 const getWsUrl = () => {
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://pluselink-backend.onrender.com/api';
     return apiUrl.replace(/^http/, 'ws').replace(/\/api$/, '');
 };
 
